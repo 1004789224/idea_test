@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="domain.Employee">
+
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="DEPT_ID" jdbcType="BIGINT" property="deptId" />
+    <result column="salay" jdbcType="DECIMAL" property="salay" />
+    <result column="hireDate" jdbcType="DATE" property="hiredate" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from employee
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="domain.Employee">
+    insert into employee (id, name, DEPT_ID,
+      salay, hireDate)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{deptId,jdbcType=BIGINT}, 
+      #{salay,jdbcType=DECIMAL}, #{hiredate,jdbcType=DATE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="domain.Employee">
+    update employee
+    set name = #{name,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=BIGINT},
+      salay = #{salay,jdbcType=DECIMAL},
+      hireDate = #{hiredate,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select id, name, DEPT_ID, salay, hireDate
+    from employee
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, DEPT_ID, salay, hireDate
+    from employee
+  </select>
+</mapper>
